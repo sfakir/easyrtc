@@ -1,20 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EasyRTC - Server Root</title>
-    <script type="text/javascript">
-        function forward(){ window.location = "/demos/";}
-    </script>
+    <title>EasyRTC Demo: Simple Video+Audio</title>
+    <link rel="stylesheet" type="text/css" href="/easyrtc/easyrtc.css" />
+
+    <!-- Assumes global locations for socket.io.js and easyrtc.js -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/easyrtc/easyrtc.js"></script>
+    <script type="text/javascript" src="js/demo_audio_video_simple.js"></script>
+
 </head>
-<body onload="setTimeout('forward()', 10000)">
-    <h1>You have installed EasyRTC!</h1>
-
-    <h2>This is your server's Web Root</h2>
-
-    <p>This is the easiest location to put your own static html files for developing WebRTC applications.</p>
-
-    <p>In the meantime we'll forward you to <a href="/demos/">the EasyRTC Demo page</a>...</p>
-
-    <a href="http://www.easyrtc.com/"><img src="/easyrtc/img/powered_by_easyrtc.png" width="200" height="60" alt="Powered by EasyRTC"></a>
+<body onload="connect();">
+<div id="demoContainer">
+    <div id="connectControls">
+        <div id="iam">Not yet connected...</div>
+        <br />
+        <strong>Connected users:</strong>
+        <div id="otherClients"></div>
+    </div>
+    <div id="videos">
+        <video autoplay="autoplay" class="easyrtcMirror" id="selfVideo" muted="muted" volume="0" ></video>
+        <div style="position:relative;float:left;">
+            <video autoplay="autoplay" id="callerVideo"></video>
+        </div>
+        <!-- each caller video needs to be in it"s own div so it"s close button can be positioned correctly -->
+    </div>
+</div>
 </body>
 </html>
+
+<style>
+    #demoContainer {
+        position:relative;
+    }
+    #connectControls {
+        float:left;
+        width:250px;
+        text-align:center;
+        border: 2px solid black;
+    }
+    #otherClients {
+        height:200px;
+        overflow-y:scroll;
+    }
+    #selfVideo {
+        height:225px;
+        width:300px;
+        float:left;
+        border:1px solid gray;
+        margin-left:10px;
+    }
+    #callerVideo {
+        height:225px;
+        width:300px;
+        border:1px solid gray;
+        margin-left:10px;
+    }
+</style>
